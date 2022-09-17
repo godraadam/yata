@@ -10,6 +10,73 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+model User {
+    id           String  @id @default(cuid())
+    username     String  @unique
+    passwordSalt String @default(uuid())
+    passwordHash String
+    email        String  @unique
+    notes        Note[]
+    todos        Todo[]
+    events       Event[]
+    labels       Label[]
+}
+
+model Note {
+    id               String   @id @default(cuid())
+    title            String
+    content          String
+    created_datetime DateTime
+    author           User     @relation(fields: [authorId], references: [id])
+    authorId         String
+    labels           Label[]  @relation()
+}
+
+model Todo {
+    id               String    @id @default(cuid())
+    title            String
+    description      String
+    created_datetime DateTime
+    priority         Priority?
+    due_date         DateTime?
+    labels           Label[]   @relation()
+    status           Status
+    user             User      @relation(fields: [userId], references: [id])
+    userId           String
+}
+
+model Event {
+    id          String   @id @default(cuid())
+    start_date  DateTime
+    end_date    DateTime
+    recurring   Boolean
+    title       String
+    description String
+    labels      Label[]  @relation()
+    user        User?    @relation(fields: [userId], references: [id])
+    userId      String?
+}
+
+model Label {
+    id         String  @id @default(cuid())
+    title      String
+    color_code String
+    User       User    @relation(fields: [userId], references: [id])
+    userId     String
+    notes      Note[]  @relation()
+    todos      Todo[]  @relation()
+    events     Event[] @relation()
+}
+
+enum Priority {
+    P1
+    P2
+    P3
+    P4
+}
+
+enum Status {
+    TODO
+    WIP
+    DONE
 }

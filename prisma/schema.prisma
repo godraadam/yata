@@ -13,7 +13,7 @@ datasource db {
 model User {
     id           String  @id @default(cuid())
     username     String  @unique
-    passwordSalt String @default(uuid())
+    passwordSalt String  @default(uuid())
     passwordHash String
     email        String  @unique
     notes        Note[]
@@ -23,32 +23,33 @@ model User {
 }
 
 model Note {
-    id               String   @id @default(cuid())
-    title            String
-    content          String
-    created_datetime DateTime
-    author           User     @relation(fields: [authorId], references: [id])
-    authorId         String
-    labels           Label[]  @relation()
+    id        String   @id @default(cuid())
+    title     String
+    content   String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    labels    Label[]
 }
 
 model Todo {
-    id               String    @id @default(cuid())
-    title            String
-    description      String
-    created_datetime DateTime
-    priority         Priority?
-    due_date         DateTime?
-    labels           Label[]   @relation()
-    status           Status
-    user             User      @relation(fields: [userId], references: [id])
-    userId           String
+    id          String    @id @default(cuid())
+    title       String
+    description String
+    createdAt   DateTime  @default(now())
+    priority    Priority?
+    dueDate     DateTime?
+    labels      Label[]   @relation()
+    status      Status
+    user        User      @relation(fields: [userId], references: [id])
+    userId      String
 }
 
 model Event {
     id          String   @id @default(cuid())
-    start_date  DateTime
-    end_date    DateTime
+    startDate   DateTime
+    endDate     DateTime
     recurring   Boolean
     title       String
     description String
@@ -58,14 +59,14 @@ model Event {
 }
 
 model Label {
-    id         String  @id @default(cuid())
-    title      String
-    color_code String
-    User       User    @relation(fields: [userId], references: [id])
-    userId     String
-    notes      Note[]  @relation()
-    todos      Todo[]  @relation()
-    events     Event[] @relation()
+    id        String  @id @default(cuid())
+    title     String
+    colorCode String
+    User      User    @relation(fields: [userId], references: [id])
+    userId    String
+    notes     Note[]
+    todos     Todo[]
+    events    Event[]
 }
 
 enum Priority {

@@ -3,12 +3,55 @@ import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import type { AppType } from "next/dist/shared/lib/utils";
+import { useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
 import superjson from "superjson";
-import type { AppRouter } from "../server/router";
+import { User, UserContextProvider } from "../context/user.context";
+import type { AppRouter } from "../server/router/index.router";
 import "../styles/globals.css";
+import { trpc } from "../utils/trpc";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+  const [user, setUser] = useState<User>(null);
+  
+  const [darkMode, setDarkMode] = useState(true);
+
+  useEffect(() => {
+    //set dark mode
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      //set favicon
+      const favicon = document.getElementById("favicon") as HTMLAnchorElement | null;
+      if (favicon != null) {
+        favicon.href = './favicon.ico';
+      } 
+    } else {
+      document.documentElement.classList.remove("dark");
+      //set favicon
+      const favicon = document.getElementById("favicon") as HTMLAnchorElement | null;
+      if (favicon != null) {
+        favicon.href = './favicon_white.ico';
+      } 
+    }
+  }, [darkMode]);
+  
+  const { data, isLoading } = trpc.useQuery(["user.me"], {
+    onSuccess: (user) => {
+      setUser(user);
+      console.log(`fetched user: ${user}`);
+    },
+  });
+
+  if (isLoading) {
+    return <div className="flex flex-col items-center justify-center h-screen">
+      <ClipLoader/>
+      </div>;
+  }
+  return (
+    <UserContextProvider value={{ user, setUser }}>
+      <Component {...pageProps} />
+    </UserContextProvider>
+  );
 };
 
 const getBaseUrl = () => {

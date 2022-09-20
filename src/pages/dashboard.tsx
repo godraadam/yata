@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { ClipLoader } from "react-spinners";
+import LoggedinLayout from "../components/layout.loggedin";
 import Navbar from "../components/navbar";
 import { useUserContext } from "../context/user.context";
 
@@ -18,9 +19,10 @@ const Dashboard: NextPage = () => {
   }
 
   return (
-    <div className="flex h-screen dark:bg-black">
-      <Navbar />
-    </div>
+    <LoggedinLayout title="Dashboard">
+      <div className="flex h-screen dark:bg-black">
+      </div>
+    </LoggedinLayout>
   );
 };
 

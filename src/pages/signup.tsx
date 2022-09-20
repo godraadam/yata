@@ -4,6 +4,10 @@ import type { NextPage } from "next";
 import { useForm } from "react-hook-form";
 import { UserRegisterSchema } from "../server/schema/user.schema";
 import { trpc } from "../utils/trpc";
+import ActionButton from "../components/button.action";
+import DarkModeToggle from "../components/darkmode.toggle";
+import { textfieldClass } from "../styles/components.styles";
+import Layout from "../components/layout";
 
 const Signup: NextPage = () => {
   const { handleSubmit, register } = useForm<UserRegisterSchema>();
@@ -12,7 +16,7 @@ const Signup: NextPage = () => {
   const { mutate, error, isLoading } = trpc.useMutation(["user.register"], {
     onError: (error) => console.log(error),
     onSuccess: async () => {
-        await router.push("/login")
+      await router.push("/login");
     },
   });
 
@@ -21,58 +25,58 @@ const Signup: NextPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div>
-        <h1 className="font-bold text-5xl text-black"> Sign up</h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="gap-3 rounded-xl shadow-md p-12"
-        >
-          <label className="">Username</label>
-          <input
-            type="text"
-            placeholder="John Doe"
-            className="px-3 py-2 m-2 rounded-full bg-gray-100 w-full"
-            {...register("username")}
-          />
-          <br />
-          <label className="">Password</label>
-          <input
-            type="password"
-            className="px-3 py-2 m-2 rounded-full bg-gray-100 w-full"
-            {...register("password")}
-          />
-          <br />
-          <label className="">E-mail</label>
-          <input
-            type="email"
-            placeholder="john.doe@example.com"
-            className="px-3 py-2 m-2 rounded-full bg-gray-100 w-full"
-            {...register("email")}
-          />
-          <br />
-          {isLoading ? (
-            <button
-              disabled
-              className="bg-black font-semibold text-xl text-white w-full py-2 my-2 rounded-full"
-            >
-              Loading...
-            </button>
-          ) : (
-            <button
+    <Layout title="Signup">
+      <div className="flex justify-center items-center flex-grow">
+        <div>
+          <h1 className="font-bold text-5xl text-black dark:text-stone-300">
+            {" "}
+            Sign up
+          </h1>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="gap-3 rounded-xl shadow-lg p-12 m-10 dark:shadow-stone-800"
+          >
+            <label className="dark:text-stone-400">Username</label>
+            <input
+              type="text"
+              placeholder="John Doe"
+              className={textfieldClass}
+              {...register("username")}
+            />
+            <br />
+            <label className="dark:text-stone-400">Password</label>
+            <input
+              type="password"
+              className={textfieldClass}
+              {...register("password")}
+            />
+            <br />
+            <label className="dark:text-stone-400">E-mail</label>
+            <input
+              type="email"
+              placeholder="john.doe@example.com"
+              className={textfieldClass}
+              {...register("email")}
+            />
+            <br />
+            <ActionButton
+              error={!!error}
+              success={false}
+              loading={isLoading}
+              onClick={() => {}}
+              name="Login"
               type="submit"
-              className="bg-black font-semibold text-xl text-white w-full py-2 my-2 rounded-full"
-            >
-              Sign up
-            </button>
-          )}
-        </form>
-        <span>Already have an account? Go to </span>
-        <Link href="/login" className="underline">
-          <a className="underline">Login</a>
-        </Link>
+            ></ActionButton>
+          </form>
+          <span className="dark:text-stone-400">
+            Already have an account? Go to{" "}
+          </span>
+          <Link href="/login">
+            <a className="underline dark:text-stone-400">Login</a>
+          </Link>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

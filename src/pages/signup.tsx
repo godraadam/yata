@@ -25,9 +25,9 @@ const Signup: NextPage = () => {
 
   return (
     <Layout title="Signup">
-      <div className="flex justify-center items-center flex-grow">
+      <div className="flex justify-center items-center">
         <div>
-          <h1 className="font-bold text-5xl text-black py-5 dark:text-stone-300">
+          <h1 className="font-bold text-5xl text-black py-5 dark:text-stone-300 select-none">
             Sign up
           </h1>
           <form

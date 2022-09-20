@@ -1,22 +1,15 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import App from "./root";
+import { useUserContext } from "../context/user.context";
+import Dashboard from "./dashboard";
+import Login from "./login";
 
 const Home: NextPage = () => {
+  const { user } = useUserContext();
+  if (!user) {
+    return <Login />;
+  }
 
-  return (
-    <>
-      <Head>
-        <title>My Notes App</title>
-        <meta name="description" content="Write some notes!" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="">
-        <App/>
-      </main>
-    </>
-  );
+  return <Dashboard />;
 };
 
 export default Home;

@@ -32,7 +32,7 @@ const Login: NextPage = () => {
     <Layout title="Login">
       <div className="flex flex-grow justify-center items-center">
         <div>
-          <h1 className="font-bold text-5xl dark:text-stone-300 py-5"> Login</h1>
+          <h1 className="font-bold text-5xl dark:text-stone-300 py-5 select-none"> Login</h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="gap-3 drop-shadow-lg pt-10 pb-3 px-10 dark:shadow-black"

@@ -1,18 +1,12 @@
 import { NextPage } from "next";
-import Navbar from "../components/navbar";
-
+import LoggedinLayout from "../components/layout.loggedin";
 
 const CalendarPage: NextPage = () => {
-  
-
   return (
-    <div>
-        <Navbar/>
-        <div>
-            Calendar
-        </div>
-    </div>
-    );
+    <LoggedinLayout>
+      <div className="flex flex-grow">Calendar</div>
+    </LoggedinLayout>
+  );
 };
 
 export default CalendarPage;

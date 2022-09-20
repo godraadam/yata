@@ -28,7 +28,6 @@ const Layout = ({
         <DarkModeToggle />
 
         {children}
-
         <Footer />
       </div>
     </div>

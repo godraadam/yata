@@ -18,7 +18,7 @@ const Dashboard: NextPage = () => {
   }
 
   return (
-    <div className="">
+    <div className="flex h-screen dark:bg-black">
       <Navbar />
     </div>
   );

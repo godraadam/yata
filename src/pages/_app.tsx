@@ -6,6 +6,7 @@ import type { AppType } from "next/dist/shared/lib/utils";
 import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import superjson from "superjson";
+import { DarkModeContextProvider } from "../context/darkmode.context";
 import { User, UserContextProvider } from "../context/user.context";
 import type { AppRouter } from "../server/router/index.router";
 import "../styles/globals.css";
@@ -20,25 +21,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     //set dark mode
     if (darkMode) {
       document.documentElement.classList.add("dark");
-      //set favicon
-      const favicon = document.getElementById("favicon") as HTMLAnchorElement | null;
-      if (favicon != null) {
-        favicon.href = './favicon.ico';
-      } 
     } else {
       document.documentElement.classList.remove("dark");
-      //set favicon
-      const favicon = document.getElementById("favicon") as HTMLAnchorElement | null;
-      if (favicon != null) {
-        favicon.href = './favicon_white.ico';
-      } 
     }
   }, [darkMode]);
   
   const { data, isLoading } = trpc.useQuery(["user.me"], {
     onSuccess: (user) => {
       setUser(user);
-      console.log(`fetched user: ${user}`);
     },
   });
 
@@ -49,7 +39,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   }
   return (
     <UserContextProvider value={{ user, setUser }}>
-      <Component {...pageProps} />
+      <DarkModeContextProvider value={{darkMode, toggleDarkMode: () => setDarkMode(!darkMode)}}>
+        <Component {...pageProps} />
+      </DarkModeContextProvider>
     </UserContextProvider>
   );
 };

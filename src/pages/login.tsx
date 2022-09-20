@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { UserLoginSchema } from "../server/schema/user.schema";
 import { trpc } from "../utils/trpc";
 import { useUserContext } from "../context/user.context";
+import { textfieldClass } from "../styles/components.styles";
+import ActionButton from "../components/button.action";
+import DarkModeToggle from "../components/darkmode.toggle";
 
 const Login: NextPage = () => {
   const { setUser } = useUserContext();
@@ -25,38 +28,43 @@ const Login: NextPage = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen dark:bg-black">
+    <div className="h-screen flex justify-center items-center dark:bg-stone-900">
+      <DarkModeToggle />
       <div>
-        <h1 className="font-bold text-5xl dark:text-white"> Login</h1>
+        <h1 className="font-bold text-5xl dark:text-stone-300"> Login</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="gap-3 rounded-xl shadow-md p-12"
+          className="gap-3 rounded-3xl shadow-lg p-12 m-10 dark:shadow-stone-800"
         >
-          <label className="dark:text-white ">Username</label>
+          <label className="dark:text-stone-400 ">Username</label>
           <input
             type="text"
             placeholder="John Doe"
-            className="px-3 py-2 my-2 rounded-full w-full bg-gray-100"
+            className={textfieldClass}
             {...register("username")}
           />
           <br />
-          <label className="dark:text-white">Password</label>
+          <label className="dark:text-stone-400">Password</label>
           <input
             type="password"
-            className="px-3 py-2 my-2 rounded-full w-full bg-gray-100"
+            className={textfieldClass}
             {...register("password")}
           />
           <br />
-          <button
-            type="submit"
-            className="bg-black font-semibold text-xl text-white w-full py-2 my-2 rounded-full dark:text-black dark:bg-white"
-          >
-            {isLoading ? "Loading..." : "Login"}
-          </button>
+          <ActionButton
+            error={!!error}
+            success={false}
+            loading={isLoading}
+            onClick={() => {}}
+            name="Login"
+            type='submit'
+          ></ActionButton>
         </form>
-        <span>Don't have an account yet? Go to </span>
+        <span className="dark:text-stone-400">
+          Don't have an account yet? Go to{" "}
+        </span>
         <Link href="/signup">
-          <a className="underline">Signup</a>
+          <a className="underline dark:text-stone-400">Signup</a>
         </Link>
       </div>
     </div>

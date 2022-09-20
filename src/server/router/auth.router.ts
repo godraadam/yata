@@ -34,7 +34,7 @@ export const authRouter = createRouter()
       const token = signJwt({ username: userFromRepo.username });
       ctx.res.setHeader(
         "Set-Cookie",
-        serialize("jwt", token, { path: "/", sameSite: "strict" })
+        serialize("jwt", token, { path: "/", sameSite: "strict", httpOnly: true, secure:true })
       );
       return loginResponseSchema.parse(userFromRepo);
     },

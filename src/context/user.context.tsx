@@ -3,11 +3,14 @@ import { inferQueryOutput } from "../utils/trpc";
 
 export type User = inferQueryOutput<"user.me">;
 interface IUserContext {
-    user: User,
-    setUser: (user: User) => void
+  user: User;
+  setUser: (user: User) => void;
 }
 
-const UserContext = createContext<IUserContext>({user: null, setUser: (user) => {}});
+const UserContext = createContext<IUserContext>({
+  user: null,
+  setUser: (user) => {},
+});
 
 export function UserContextProvider({
   children,

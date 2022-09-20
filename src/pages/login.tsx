@@ -5,10 +5,9 @@ import { useForm } from "react-hook-form";
 import { UserLoginSchema } from "../server/schema/user.schema";
 import { trpc } from "../utils/trpc";
 import { useUserContext } from "../context/user.context";
-import { textfieldClass } from "../styles/components.styles";
 import ActionButton from "../components/button.action";
-import DarkModeToggle from "../components/darkmode.toggle";
 import Layout from "../components/layout";
+import TextField from "../components/input.text";
 
 const Login: NextPage = () => {
   const { setUser } = useUserContext();
@@ -27,30 +26,22 @@ const Login: NextPage = () => {
   function onSubmit(values: UserLoginSchema) {
     mutate(values);
   }
+  
 
   return (
     <Layout title="Login">
       <div className="flex flex-grow justify-center items-center">
         <div>
-          <h1 className="font-bold text-5xl dark:text-stone-300"> Login</h1>
+          <h1 className="font-bold text-5xl dark:text-stone-300 py-5"> Login</h1>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="gap-3 rounded-3xl shadow-lg p-12 m-10 dark:shadow-stone-800"
+            className="gap-3 drop-shadow-lg pt-10 pb-3 px-10 dark:shadow-black"
           >
             <label className="dark:text-stone-400 ">Username</label>
-            <input
-              type="text"
-              placeholder="John Doe"
-              className={textfieldClass}
-              {...register("username")}
-            />
+            <TextField type="text" placeholder="@john_doe" props={register("username")}/>
             <br />
             <label className="dark:text-stone-400">Password</label>
-            <input
-              type="password"
-              className={textfieldClass}
-              {...register("password")}
-            />
+            <TextField type="password" props={register("password")}/>
             <br />
             <ActionButton
               error={!!error}

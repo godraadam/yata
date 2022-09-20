@@ -18,6 +18,6 @@ export const Logout = () => {
     
     
     return (
-        <button onClick={() => mutate()} className="text-lg dark:text-white h-fit"> Logout</button>
+        <button onClick={() => mutate()} className="text-lg dark:text-white py-1 h-fit"> Logout</button>
     )
 }

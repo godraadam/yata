@@ -20,7 +20,7 @@ const Dashboard: NextPage = () => {
 
   return (
     <LoggedinLayout title="Dashboard">
-      <div className="flex h-screen dark:bg-black">
+      <div className="flex flex-grow">
       </div>
     </LoggedinLayout>
   );

@@ -13,8 +13,8 @@ const NavbarItem = ({ href, name }: NavbarItemProps) => {
   return (
     <Link href={href}>
       <a
-        className={`text-lg px-2 dark:text-white ${
-          path == href ? "underline decoration-2 underline-offset-8 decoration-red-500" : ""
+        className={`text-lg rounded-lg py-1 px-3 dark:text-white ${
+          path == href ? " bg-stone-300 dark:bg-stone-700" : ""
         }`}
       >
         {name}

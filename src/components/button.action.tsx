@@ -1,6 +1,6 @@
 import { ClipLoader } from "react-spinners";
 
-interface ActionButtonProps {
+type ActionButtonProps = {
   loading: boolean;
   success: boolean;
   error: boolean;
@@ -10,7 +10,7 @@ interface ActionButtonProps {
 }
 
 const actionButtonStyleBase =
-  "bg-black font-semibold text-xl text-white w-full py-2 my-2 rounded-full hover:bg-stone-700 dark:text-black dark:bg-stone-300 dark:hover:bg-stone-100";
+  "bg-black font-semibold shadow-lg dark:shadow-black text-xl text-white w-full py-2 my-2 rounded-full hover:bg-stone-700 dark:text-black dark:bg-stone-200 dark:hover:bg-white";
 const actionButtonStyleSuccess = `${actionButtonStyleBase} border-2 border-green-300`;
 const actionButtonStyleError = `${actionButtonStyleBase} bg-red-400 dark:bg-red-400`;
 

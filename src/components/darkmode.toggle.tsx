@@ -4,7 +4,7 @@ const DarkModeToggle = () => {
   const { darkMode, toggleDarkMode } = useDarkModeContext();
 
   return (
-    <button onClick={toggleDarkMode} className="h-fit absolute top-8 right-8">
+    <button onClick={toggleDarkMode} className="h-fit absolute top-8 right-8 p-5 bg-stone-200 rounded-full dark:bg-black">
       {darkMode ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

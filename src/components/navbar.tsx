@@ -1,15 +1,13 @@
-import DarkModeToggle from "./darkmode.toggle";
 import { Logout } from "./logout";
 import NavbarItem from "./navbar.item";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-around  rounded-xl mx-20 my-5 px-40 py-2 h-fit shadow-lg dark:bg-stone-800 dark:shadow-black">
+    <div className="grid grid-flow-col grid-rows-4 md:grid-rows-2 lg:grid-rows-1 rounded-lg mx-auto sticky top-10 py-2 px-40 h-fit bg-stone-200 gap-10 shadow-lg dark:shadow-black">
       <NavbarItem name="Notes" href="/notes" />
       <NavbarItem name="Tasks" href="/tasks" />
       <NavbarItem name="Calendar" href="/calendar" />
       <Logout />
-      <DarkModeToggle />
     </div>
   );
 };
